@@ -1,0 +1,56 @@
+project_structure:
+  - name: data
+    type: directory
+    content:
+      - name: raw
+        type: directory
+      - name: processed
+        type: directory
+      - name: external
+        type: directory
+  - name: notebooks
+    type: directory
+  - name: src
+    type: directory
+    content:
+      - name: __init__.py
+        type: file
+      - name: feature1
+        type: directory
+      - name: feature2
+        type: directory
+      - name: feature3
+        type: directory
+  - name: config
+    type: directory
+    content:
+      - name: __init__.py
+        type: file
+      - name: config.yaml
+        type: file
+      - name: logging.yaml
+        type: file
+      - name: .env
+        type: file
+  - name: tests
+    type: directory
+  - name: docs
+    type: directory
+  - name: outputs
+    type: directory
+    content:
+      - name: data
+        type: directory
+      - name: objects
+        type: directory
+  - name: requirements.txt
+    type: file
+  - name: main.py
+    type: file
+    content: 
+      >
+        def main():
+            print("Hello World!")
+
+        if __name__ == "__main__":
+            main()
