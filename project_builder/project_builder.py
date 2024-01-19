@@ -2,7 +2,7 @@ import argparse
 import os
 import yaml
 
-DEFAULT_YAML_PATH = './project_structure.yaml'
+DEFAULT_YAML_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'project_structure.yaml')
 
 def get_default_yaml() -> None:
     """
@@ -13,7 +13,7 @@ def get_default_yaml() -> None:
     """
     try:
         with open(DEFAULT_YAML_PATH, 'r') as file:
-            content = yaml.safe_load(file)
+            content = file.read()
             print(content)
     except FileNotFoundError:
         print(f"Error: YAML file not found at {DEFAULT_YAML_PATH}")
@@ -62,11 +62,10 @@ def project_build(path:str, yaml_path:str = DEFAULT_YAML_PATH) -> None:
         with open(yaml_path, 'r') as file:
             structure = yaml.safe_load(file)
     except FileNotFoundError:
-        print(f"Error: YAML file not found at {yaml_path}")
-        return
+        raise FileNotFoundError(f"Error: YAML file not found at {yaml_path}")
+    
     except Exception as e:
-        print(f"Error: An unexpected error occurred: {e}")
-        return
+        raise Exception(f"Error: An unexpected error occurred: {e}")
     
     create_structure(path, structure['project_structure'])    
     
@@ -74,14 +73,24 @@ def project_build(path:str, yaml_path:str = DEFAULT_YAML_PATH) -> None:
 def main():
     parser = argparse.ArgumentParser(description='Create a directory structure based on the project_structure.yaml file.')
     parser.add_argument('-p', '--path', type=str, default='.', dest='path_of_project', help='Path where the parent directory of the project will be set.')
-    parser.add_argument('-n', '--name', type=str, help='Name of the project and the root folder.', required=True)
-
+    parser.add_argument('-n', '--name', type=str, help='Name of the project and the root folder.')
+    parser.add_argument('--set-yaml', type=str, default=DEFAULT_YAML_PATH, help='Path to the YAML file containing the project structure definition. Default is ./project_structure.yaml.')
+    parser.add_argument('--yaml', action='store_true', help='Path to the YAML file containing the project structure definition. If provided, print the content of the YAML file and exit.')
+    
     args = parser.parse_args()
+    
+    if args.yaml:
+        get_default_yaml()
+        return
+    
+    if args.name is None:
+        print("Error: --name is required when not using --yaml.")
+        return
     
     project_path = os.path.join(args.path_of_project, args.name)
     
     try:
-        project_build(project_path)
+        project_build(project_path, yaml_path=args.set_yaml)
         print(f"Project structure created successfully at '{project_path}'.")
     except Exception as e:
         print(f"Error: Failed to create project structure: {e}")
