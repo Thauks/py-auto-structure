@@ -5,7 +5,7 @@ with open('README.md', 'r') as readme_file:
 
 setup(
     name='py-auto-structure',
-    version='0.1.2',
+    version='0.1.3',
     author='Thauks',
     description='A tool to create a directory structure based on a YAML file',
     long_description=long_description,
@@ -15,7 +15,8 @@ setup(
     install_requires=[
         'pyyaml',
         'wheel',
-        'setuptools'
+        'setuptools',
+        'twine',
     ],
     entry_points={
         'console_scripts': [
