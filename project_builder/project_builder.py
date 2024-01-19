@@ -74,7 +74,7 @@ def main():
     parser = argparse.ArgumentParser(description='Create a directory structure based on the project_structure.yaml file.')
     parser.add_argument('-p', '--path', type=str, default='.', dest='path_of_project', help='Path where the parent directory of the project will be set.')
     parser.add_argument('-n', '--name', type=str, help='Name of the project and the root folder.')
-    parser.add_argument('--set-yaml', type=str, default=DEFAULT_YAML_PATH, help='Path to the YAML file containing the project structure definition. Default is ./project_structure.yaml.')
+    parser.add_argument('--set-yaml', type=str, default=DEFAULT_YAML_PATH, help='Path to the YAML file containing the project structure definition. Default is an internal project_structure.yaml.')
     parser.add_argument('--yaml', action='store_true', help='Path to the YAML file containing the project structure definition. If provided, print the content of the YAML file and exit.')
     
     args = parser.parse_args()

@@ -26,6 +26,8 @@ py-structure -p <path_to_be_set> -n <project_name>
 Options:
 - -p, --path: Path where the parent directory of the project will be set.
 - -n, --name: Specify the name of the project and it will be the root of the project.
+- --set-yaml: Path to the YAML file containing the project structure definition. Default is an internal project_structure.yaml.
+- --yaml: Returns the raw content of the default yaml in order to copy it.
 
 By default, the script looks for the project structure definition in a file named project_structure.yaml in the current directory.
 
@@ -34,7 +36,7 @@ By default, the script looks for the project structure definition in a file name
 You can also import it as a module and call the function project_build this way:
 
 ```python
-from py_auto_structure import project_build
+from project_builder.project_builder import project_build
 
 project_build(path=your_path, yaml_path=your_custom_yaml_path)
 
